@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct Note : Decodable, Identifiable{
+struct Note : Identifiable,Codable{
     let id : UUID
     let notes :String
     

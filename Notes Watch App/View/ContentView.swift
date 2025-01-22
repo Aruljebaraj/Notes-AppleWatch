@@ -18,7 +18,31 @@ import SwiftUI
         }
         
        func saveNotes(){
-            
+           do{
+               let data  = try JSONEncoder().encode(notes)
+               let url = getDirectoryPath().appendingPathComponent("Notes")
+               try data.write(to: url)
+           }catch{
+               
+           }
+        }
+        func fetchNotes(){
+            do{
+              
+                let url = getDirectoryPath().appendingPathComponent("Notes")
+                let data = try Data(contentsOf: url)
+                notes = try JSONDecoder().decode([Note].self,from: data)
+              
+            }catch{
+                
+            }
+         }
+        
+        func deleteNotes(offsets:IndexSet){
+            withAnimation{
+                notes.remove(atOffsets: offsets)
+                saveNotes()
+            }
         }
 
         var body: some View {
@@ -32,22 +56,35 @@ import SwiftUI
                         
                             let note = Note(id: UUID(), notes: text)
                             notes.append(note)
-                            text = ""
+                          
                             saveNotes()
+                            text = ""
                         }) {
-                            Image(systemName: "plus.circle").font(.system(size: 40))
+                            Image(systemName: "plus.circle").font(.system(size: 30))
                                 .foregroundColor(.accentColor)
                         }
                         .fixedSize().buttonStyle(PlainButtonStyle())
                     }
-                    .padding()
+                   
                     
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    Text("Hello, world!")
+                    if notes.isEmpty {
+                        Image(systemName: "globe")
+                            .imageScale(.large)
+                            .foregroundStyle(.tint)
+                        Text("Hello, world!")
+                    } else {
+                        
+                        List {
+                            ForEach(0..<notes.count, id: \.self) { i in
+                                Text(notes[i].notes)// Assuming 'title' is a property of your 'Note' object
+                            }.onDelete(perform: deleteNotes)
+                        }
+                    }
+                 
+                }.onAppear(){
+                    fetchNotes();
                 }
-                .navigationTitle("Notes")
+                .navigationTitle("Notes").font(.system(size: 12))
             }
             
         }
