@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-    struct ContentView: View {
+    struct HomeView: View {
         @State private var text: String = ""
         @State private var notes:[Note]=[Note]()
         
@@ -99,11 +99,11 @@ import SwiftUI
 
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
-            ContentView()
+            HomeView()
         }
     }
 
 
 #Preview {
-    ContentView()
+    HomeView()
 }

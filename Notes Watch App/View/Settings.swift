@@ -9,7 +9,17 @@ import SwiftUI
 
 struct Settings: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        HeaderView(title: "Settings")
+            .padding(.vertical, 10)
+        
+        Text("Arul Jebaraj")
+            .foregroundColor(.primary)
+            .fontWeight(.bold)
+        
+        Text("IOS Developer")
+            .foregroundColor(.secondary)
+            .fontWeight(.light)
     }
 }
 
