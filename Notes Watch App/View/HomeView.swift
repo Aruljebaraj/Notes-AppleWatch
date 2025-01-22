@@ -76,7 +76,14 @@ import SwiftUI
                         
                         List {
                             ForEach(0..<notes.count, id: \.self) { i in
-                                Text(notes[i].notes)// Assuming 'title' is a property of your 'Note' object
+                                NavigationLink(destination: Details(note: notes[i], count: notes.count, index: i)) {
+                                    
+                                    HStack(alignment:.center){
+                                        Capsule().frame(width: 2).foregroundColor(.accent)
+                                        Text(notes[i].notes)// Assuming 'title' is a property of your 'Note' object
+                                    }
+                                }
+                             
                             }.onDelete(perform: deleteNotes)
                         }
                     }
