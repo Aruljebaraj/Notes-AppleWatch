@@ -10,7 +10,7 @@ import SwiftUI
     struct HomeView: View {
         @State private var text: String = ""
         @State private var notes:[Note]=[Note]()
-        
+        @AppStorage("lineCount") var lineCount: Int = 1
         
         func getDirectoryPath() -> URL{
             let path=FileManager.default.urls(for:.documentDirectory,in: .userDomainMask)
@@ -80,7 +80,7 @@ import SwiftUI
                                     
                                     HStack(alignment:.center){
                                         Capsule().frame(width: 2).foregroundColor(.accent)
-                                        Text(notes[i].notes)// Assuming 'title' is a property of your 'Note' object
+                                        Text(notes[i].notes).lineLimit(lineCount)// Assuming 'title' is a property of your 'Note' object
                                     }
                                 }
                              
